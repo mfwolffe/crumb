@@ -22,16 +22,16 @@ const ShellNav: React.FC<Props> = ({ label, placeholder, value, onChange }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-3/4">
       {label && <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</label>}
       <div className="flex">
         <span className="inline-block px-3 py-2 text-sm font-medium text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-300 rounded-l-md">
-          $
+          <span className='text-red-800'>nobody</span>@<span className='text-teal-300'>crumb</span>:~$
         </span>
         <input
           id='cliPrompt'
           type="text"
-          className={`!${fonts.sourceCodePro.className} w-full px-3 py-2 text-sm  bg-gray-50 border border-gray-300 rounded-r-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:placeholder-gray-400 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+          className={`${fonts.ubuntuSansMono.className} w-full px-3 py-2 text-sm bg-gray-50 rounded-r-md dark:bg-gray-700 dark:placeholder-gray-500 outline-none`}
           placeholder={placeholder}
           value={inputValue}
           onChange={handleChange}
