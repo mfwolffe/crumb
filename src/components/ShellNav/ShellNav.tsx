@@ -1,7 +1,14 @@
 
+
+// TODO @mfwolffe 
 import * as fonts from '@/utils/fonts'
 import React, { useState } from 'react';
-import styles from './ShellNav.module.css'
+
+import { useBashContext } from '@/context/BashContext';
+
+
+import { PS1 } from '@/context/config';
+
 
 interface Props {
   label?: string;
@@ -21,13 +28,17 @@ const ShellNav: React.FC<Props> = ({ label, placeholder, value, onChange }) => {
     }
   };
 
+
+  const { state } = useBashContext();
+
+
   return (
     <div className="relative w-3/4">
       {label && <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</label>}
       <div className="flex">
-        <span className="inline-block px-3 py-2 text-sm font-medium text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-300 rounded-l-md">
-          <span className='text-red-800'>nobody</span>@<span className='text-teal-300'>crumb</span>:~$
-        </span>
+
+        <PS1 />
+        
         <input
           id='cliPrompt'
           type="text"
