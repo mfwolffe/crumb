@@ -1,13 +1,35 @@
 "use client";
 
 
-// TODO @mfwolffe fix types stuff
-//
+// DONE? @mfwolffe fix types stuff
+//                 ^ wow so eloquent
 
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useReducer, useContext, ReactNode, Dispatch } from 'react';
 
 
-const baseState = {
+// TODO @mfwolffe probably want some safety
+//                but I haven't decided how this will 
+//                look in the end
+interface Action<T = any> {
+  type: string;
+  payload?: T;
+}
+
+interface BashState {
+  executed:       boolean;
+  hostName:       string;
+  userName:       string;
+  ps1uColorClass: string;
+  ps1hColorClass: string;
+}
+
+interface BashContextProps {
+  state: BashState;
+  dispatch: Dispatch<Action>;
+}
+
+
+const baseState: BashState = {
   executed: false,
   hostName: "crumb",
   userName: "nobody",
@@ -15,8 +37,9 @@ const baseState = {
   ps1hColorClass: "text-teal-300",
 }
 
+const BashContext = createContext<BashContextProps | undefined>(undefined);
 
-const reducer = (state, action) => {
+const reducer = (state: BashState, action: Action): BashState => {
   switch (action.type) {
     default:                    return state;
     case "START":               return { ...state, executed: true };
@@ -27,10 +50,9 @@ const reducer = (state, action) => {
   }
 }
 
-const BashContext = createContext();
 
 
-export const BashProvider = ({ children }) => {
+export const BashProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, baseState);
 
   return (
@@ -40,4 +62,11 @@ export const BashProvider = ({ children }) => {
   )
 }
 
-export const useBashContext = () => useContext(BashContext);
+export const useBashContext = (): BashContextProps => {
+  const context = useContext(BashContext);
+  if (!context) {
+    throw new Error("useBashContext has to be used in a BashProvider");
+  }
+  return context;
+};
+
