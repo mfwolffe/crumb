@@ -15,7 +15,7 @@ const BashLanding = () => {
 
   return (
     <>
-      <ShellNav placeholder="chmod +x bash-a-crumb.sh && ./bash-a-crumb.sh" />
+      <ShellNav placeholder="./schelp-mee.sh" />
 
       <ol className="list-inside list-decimal text-sm text-center sm:text-left">
         <li className="mb-2">
